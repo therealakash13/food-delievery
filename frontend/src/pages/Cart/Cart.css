@@ -61,6 +61,8 @@
   padding: 12px 0px;
   border-radius: 2px;
   cursor: pointer;
+  align-self: center;
+  margin-top: 10px;
 }
 
 .cart-promocode {
