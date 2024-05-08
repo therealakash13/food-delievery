@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./PlaceOrder.css";
 import { StoreContext } from "../../context/StoreContext";
 import axios, { AxiosHeaders } from "axios";
+import { toast } from "react-toastify";
 
 const PlaceOrder = () => {
   const { getTotalCartAmount, token, food_list, cartItem, url } =
@@ -48,9 +49,10 @@ const PlaceOrder = () => {
       });
       if (response.data.success) {
         const { session_url } = response.data;
+        toast(response.data.message);
         window.location.replace(session_url);
       } else {
-        alert("Error");
+        toast.error(response.data.message);
       }
     } catch (error) {
       console.log(error);

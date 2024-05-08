@@ -3,6 +3,7 @@ import "./Verify.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Verify = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -17,8 +18,10 @@ const Verify = () => {
       orderId,
     });
     if (response.data.success) {
+      toast.success(response.data.success);
       navigate("/myOrders");
     } else {
+      toast.error("Payment Error");
       navigate("/");
     }
   };

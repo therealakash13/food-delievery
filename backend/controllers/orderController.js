@@ -6,7 +6,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Placing Order
 const placeOrder = async (req, res) => {
-  const frontend_url = "http://localhost:5173";
+  const frontend_url = process.env.F_URL;
 
   try {
     const newOrder = new orderModel({
@@ -74,7 +74,7 @@ const verifyOrder = async (req, res) => {
   }
 };
 
-// Users order
+// Users order in Frontend
 const userOrders = async (req, res) => {
   try {
     const orders = await orderModel.find({ userId: req.body.userId });
@@ -85,4 +85,28 @@ const userOrders = async (req, res) => {
   }
 };
 
-export { placeOrder, verifyOrder, userOrders };
+// User Order in Admin
+const listOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({});
+    res.json({ success: true, data: orders });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Orders Not Found" });
+  }
+};
+
+// Updating Order Status
+const updateStatus = async (req, res) => {
+  try {
+    await orderModel.findByIdAndUpdate(req.body.orderId, {
+      status: req.body.status,
+    });
+    res.json({ success: true, message: "Order Status Updated" });
+  } catch (error) {
+    console.log();
+    res.json({ success: false, message: "Order Status Not Updated" });
+  }
+};
+
+export { placeOrder, verifyOrder, userOrders, listOrders, updateStatus };
