@@ -18,11 +18,11 @@ const App = () => {
       <hr />
       <div className="app-content">
         <Sidebar />
-        <>
+        <Routes>
           <Route path="/add" element={<Add url={url} />} />
           <Route path="/list" element={<List url={url} />} />
           <Route path="/orders" element={<Order url={url} />} />
-        </>
+        </Routes>
       </div>
     </div>
   );
